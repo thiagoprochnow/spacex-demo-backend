@@ -4,8 +4,7 @@ version: '3'
 services:
   # MySQL Database
   database:
-    platform: linux/amd64
-    image: mysql/mysql-server:5.7
+    image: mysql/mysql-server:5.7.16
     restart: 'no'
     ports:
       - '3306:3306'
@@ -18,6 +17,8 @@ services:
       MYSQL_PASSWORD: 'password'
       MYSQL_DATABASE: 'spacex'
       MYSQL_HOST: localhost
+    expose:
+      - '3306'
 
   # AWS Local
   localstack:
