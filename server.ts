@@ -19,6 +19,7 @@ import helmet from 'helmet';
 import { RateLimiterMiddleware } from './middlewares';
 import { sync } from './models';
 import { CreateRoutes } from './controllers/CreateRoutes';
+import { umzug } from './migrate';
 
 const getIpAddress = (request: express.Request): string | undefined => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -44,6 +45,7 @@ export const createApp = async (): Promise<core.Express> => {
 
   const app = express();
   await sync();
+  await umzug.up();
 
   return new Promise((resolve, reject) => {
     const ready = err => {
