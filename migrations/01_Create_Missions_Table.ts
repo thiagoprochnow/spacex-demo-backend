@@ -15,6 +15,10 @@ module.exports = {
                 type: DataTypes.DATE,
                 allowNull: false
             },
+            updatedAt: {
+                type: DataTypes.DATE,
+                allowNull: false
+            },
             shipId: {
                 type: DataTypes.UUID,
                 allowNull: false,
