@@ -5,6 +5,7 @@ const queries = gql`
     user(input: UserInput!): User!
     blockApp(input: BlockAppInput!): BlockApp!
     ships(input: ShipsInput!): [Ship!]
+    missions(input: MissionsInput!): [Mission!]
   }
 `;
 

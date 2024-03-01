@@ -27,6 +27,17 @@ export type BlockAppInput = {
   deviceBrand: Scalars['String'];
 };
 
+export type Mission = {
+  __typename?: 'Mission';
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  shipId?: Maybe<Scalars['String']>;
+};
+
+export type MissionsInput = {
+  shipId: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addUser?: Maybe<User>;
@@ -40,6 +51,7 @@ export type PaginationInput = {
 export type Query = {
   __typename?: 'Query';
   blockApp: BlockApp;
+  missions?: Maybe<Array<Mission>>;
   ships?: Maybe<Array<Ship>>;
   user: User;
 };
@@ -47,6 +59,11 @@ export type Query = {
 
 export type QueryBlockAppArgs = {
   input: BlockAppInput;
+};
+
+
+export type QueryMissionsArgs = {
+  input: MissionsInput;
 };
 
 
@@ -163,6 +180,8 @@ export type ResolversTypes = {
   Date: ResolverTypeWrapper<Scalars['Date']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  Mission: ResolverTypeWrapper<Mission>;
+  MissionsInput: MissionsInput;
   Mutation: ResolverTypeWrapper<{}>;
   PaginationInput: PaginationInput;
   Query: ResolverTypeWrapper<{}>;
@@ -181,6 +200,8 @@ export type ResolversParentTypes = {
   Date: Scalars['Date'];
   ID: Scalars['ID'];
   Int: Scalars['Int'];
+  Mission: Mission;
+  MissionsInput: MissionsInput;
   Mutation: {};
   PaginationInput: PaginationInput;
   Query: {};
@@ -201,12 +222,20 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
   name: 'Date';
 }
 
+export type MissionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mission'] = ResolversParentTypes['Mission']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  shipId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   blockApp?: Resolver<ResolversTypes['BlockApp'], ParentType, ContextType, RequireFields<QueryBlockAppArgs, 'input'>>;
+  missions?: Resolver<Maybe<Array<ResolversTypes['Mission']>>, ParentType, ContextType, RequireFields<QueryMissionsArgs, 'input'>>;
   ships?: Resolver<Maybe<Array<ResolversTypes['Ship']>>, ParentType, ContextType, RequireFields<QueryShipsArgs, 'input'>>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryUserArgs, 'input'>>;
 };
@@ -235,6 +264,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 export type Resolvers<ContextType = any> = {
   BlockApp?: BlockAppResolvers<ContextType>;
   Date?: GraphQLScalarType;
+  Mission?: MissionResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Ship?: ShipResolvers<ContextType>;
